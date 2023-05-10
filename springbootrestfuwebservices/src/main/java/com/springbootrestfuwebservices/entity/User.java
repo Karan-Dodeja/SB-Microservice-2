@@ -1,2 +1,5 @@
-package com.springbootrestfuwebservices.entity;public class User {
+package com.springbootrestfuwebservices.entity;
+
+public class User {
+
 }
