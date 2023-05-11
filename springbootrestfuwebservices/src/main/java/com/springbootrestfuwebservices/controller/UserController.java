@@ -1,5 +1,6 @@
 package com.springbootrestfuwebservices.controller;
 
+import com.springbootrestfuwebservices.dto.UserDto;
 import com.springbootrestfuwebservices.entity.User;
 import com.springbootrestfuwebservices.service.UserService;
 import com.springbootrestfuwebservices.service.UserServiceImpl;
@@ -20,30 +21,29 @@ public class UserController {
     private UserService userService;
 
     @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody User user) {
-        User saveUser = userService.createUser(user);
+    public ResponseEntity<UserDto> createUser(@RequestBody UserDto user) {
+        UserDto saveUser = userService.createUser(user);
         return new ResponseEntity<>(saveUser, HttpStatus.CREATED);
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<User> getUSerById(@PathVariable("id") Long userId) {
-        User userDetails = userService.getUserById(userId);
+    public ResponseEntity<UserDto> getUSerById(@PathVariable("id") Long userId) {
+        UserDto userDetails = userService.getUserById(userId);
         return new ResponseEntity<>(userDetails, HttpStatus.OK);
     }
 
     @GetMapping
-    public ResponseEntity<List<User>> getAllUsers() {
-        List<User> userList = userService.getAllUsers();
+    public ResponseEntity<List<UserDto>> getAllUsers() {
+        List<UserDto> userList = userService.getAllUsers();
         return new ResponseEntity<>(userList, HttpStatus.OK);
     }
 
     @PostMapping("{id}")
-    public ResponseEntity<User> updatUser(@PathVariable("id") Long userId,@RequestBody User user){
+    public ResponseEntity<UserDto> updatUser(@PathVariable("id") Long userId,@RequestBody UserDto user){
         user.setId(userId);
-        User updatedUsers = userService.updateUser(user);
+        UserDto updatedUsers = userService.updateUser(user);
         return new ResponseEntity<>(updatedUsers, HttpStatus.OK);
     }
-
     @DeleteMapping("{id}")
     public ResponseEntity<String> deleteUser(@PathVariable("id")  Long userId){
         userService.deleteUser(userId);
