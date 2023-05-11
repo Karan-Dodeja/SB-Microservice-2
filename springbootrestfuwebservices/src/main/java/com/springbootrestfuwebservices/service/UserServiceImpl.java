@@ -2,6 +2,7 @@ package com.springbootrestfuwebservices.service;
 
 import com.springbootrestfuwebservices.dto.UserDto;
 import com.springbootrestfuwebservices.entity.User;
+import com.springbootrestfuwebservices.exception.EmailAlreadyExistsException;
 import com.springbootrestfuwebservices.exception.ResourceNotFoundException;
 import com.springbootrestfuwebservices.mapper.UserMapper;
 import com.springbootrestfuwebservices.repository.UserRepository;
@@ -10,6 +11,7 @@ import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.nio.file.ReadOnlyFileSystemException;
 import java.util.List;
 import java.util.Optional;
@@ -32,6 +34,12 @@ public class UserServiceImpl implements UserService {
         User savedUser = userRepository.save(user);
 
         // UserDto savedUserDto = UserMapper.mappToUserDto(savedUser);
+
+        Optional<User> optionalUser = userRepository.findByEmail(userDto.getEmail());
+
+        if(optionalUser.isPresent()){
+            throw new EmailAlreadyExistsException("Email Already Exists for User");
+        }
 
         UserDto savedUserDto = modelMapper.map(savedUser, UserDto.class);
 
