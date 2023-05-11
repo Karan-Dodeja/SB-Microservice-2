@@ -2,6 +2,7 @@ package com.springbootrestfuwebservices.service;
 
 import com.springbootrestfuwebservices.dto.UserDto;
 import com.springbootrestfuwebservices.entity.User;
+import com.springbootrestfuwebservices.exception.ResourceNotFoundException;
 import com.springbootrestfuwebservices.mapper.UserMapper;
 import com.springbootrestfuwebservices.repository.UserRepository;
 import lombok.AllArgsConstructor;
@@ -9,6 +10,7 @@ import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.nio.file.ReadOnlyFileSystemException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -39,8 +41,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto getUserById(Long userId) {
-        Optional<User> singleUser = userRepository.findById(userId);
-        User user =  singleUser.get();
+
+        User user = userRepository.findById(userId).orElseThrow(
+                () -> new ResourceNotFoundException("User","id", userId)
+        );
+
         // return UserMapper.mappToUserDto(user);
         return modelMapper.map(user, UserDto.class);
     }
@@ -57,7 +62,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto updateUser(UserDto user) {
-        User findUser = userRepository.findById(user.getId()).get();
+        User findUser = userRepository.findById(user.getId()).orElseThrow(
+                () -> new ResourceNotFoundException("User","id",user.getId())
+        );
         findUser.setFirstName(findUser.getFirstName());
         findUser.setLastName(findUser.getLastName());
         findUser.setEmail(findUser.getEmail());
@@ -68,6 +75,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteUser(Long userId) {
+        User deleteUser = userRepository.findById(userId).orElseThrow(
+                () -> new ResourceNotFoundException("User","id",userId)
+        );
         userRepository.deleteById(userId);
     }
+
 }
