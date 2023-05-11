@@ -6,6 +6,7 @@ import com.springbootrestfuwebservices.exception.ErrorDetails;
 import com.springbootrestfuwebservices.exception.ResourceNotFoundException;
 import com.springbootrestfuwebservices.service.UserService;
 import com.springbootrestfuwebservices.service.UserServiceImpl;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,7 +26,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping
-    public ResponseEntity<UserDto> createUser(@RequestBody UserDto user) {
+    public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserDto user) {
         UserDto saveUser = userService.createUser(user);
         return new ResponseEntity<>(saveUser, HttpStatus.CREATED);
     }
@@ -43,7 +44,7 @@ public class UserController {
     }
 
     @PostMapping("{id}")
-    public ResponseEntity<UserDto> updatUser(@PathVariable("id") Long userId,@RequestBody UserDto user){
+    public ResponseEntity<UserDto> updatUser(@PathVariable("id") Long userId,@RequestBody @Valid UserDto user){
         user.setId(userId);
         UserDto updatedUsers = userService.updateUser(user);
         return new ResponseEntity<>(updatedUsers, HttpStatus.OK);
