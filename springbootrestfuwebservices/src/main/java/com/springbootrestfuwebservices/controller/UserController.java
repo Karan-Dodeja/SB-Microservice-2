@@ -2,6 +2,8 @@ package com.springbootrestfuwebservices.controller;
 
 import com.springbootrestfuwebservices.dto.UserDto;
 import com.springbootrestfuwebservices.entity.User;
+import com.springbootrestfuwebservices.exception.ErrorDetails;
+import com.springbootrestfuwebservices.exception.ResourceNotFoundException;
 import com.springbootrestfuwebservices.service.UserService;
 import com.springbootrestfuwebservices.service.UserServiceImpl;
 import lombok.AllArgsConstructor;
@@ -10,7 +12,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.WebRequest;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
