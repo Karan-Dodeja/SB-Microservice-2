@@ -4,6 +4,8 @@ import com.springbootrestfuwebservices.dto.UserDto;
 import com.springbootrestfuwebservices.entity.User;
 import com.springbootrestfuwebservices.exception.EmailAlreadyExistsException;
 import com.springbootrestfuwebservices.exception.ResourceNotFoundException;
+
+import com.springbootrestfuwebservices.mapper.AutoUserMapper;
 import com.springbootrestfuwebservices.mapper.UserMapper;
 import com.springbootrestfuwebservices.repository.UserRepository;
 import lombok.AllArgsConstructor;
@@ -29,9 +31,9 @@ public class UserServiceImpl implements UserService {
 
         // User user = UserMapper.mapToUser(userDto);
 
-        User user = modelMapper.map(userDto, User.class);
+        //User user = modelMapper.map(userDto, User.class);
 
-        User savedUser = userRepository.save(user);
+        //User savedUser = userRepository.save(user);
 
         // UserDto savedUserDto = UserMapper.mappToUserDto(savedUser);
 
@@ -40,8 +42,11 @@ public class UserServiceImpl implements UserService {
         if(optionalUser.isPresent()){
             throw new EmailAlreadyExistsException("Email Already Exists for User");
         }
+        User user = AutoUserMapper.MAPPER.mapToUser(userDto);
 
-        UserDto savedUserDto = modelMapper.map(savedUser, UserDto.class);
+        User savedUser = userRepository.save(user);
+
+        UserDto savedUserDto = AutoUserMapper.MAPPER.mappToUserDto(savedUser);
 
         return savedUserDto;
 
@@ -55,7 +60,7 @@ public class UserServiceImpl implements UserService {
         );
 
         // return UserMapper.mappToUserDto(user);
-        return modelMapper.map(user, UserDto.class);
+        return AutoUserMapper.MAPPER.mappToUserDto(user);
     }
 
     @Override
@@ -64,21 +69,21 @@ public class UserServiceImpl implements UserService {
         //return users.stream().map(UserMapper::mappToUserDto)
         //      .collect(Collectors.toList());
 
-        return users.stream().map((user)->modelMapper.map(user, UserDto.class))
+        return users.stream().map((user) -> AutoUserMapper.MAPPER.mappToUserDto(user))
                 .collect(Collectors.toList());
     }
 
     @Override
     public UserDto updateUser(UserDto user) {
-        User findUser = userRepository.findById(user.getId()).orElseThrow(
+        User existingUser = userRepository.findById(user.getId()).orElseThrow(
                 () -> new ResourceNotFoundException("User","id",user.getId())
         );
-        findUser.setFirstName(findUser.getFirstName());
-        findUser.setLastName(findUser.getLastName());
-        findUser.setEmail(findUser.getEmail());
-        User updateExistUser = userRepository.save(findUser);
+        existingUser.setFirstName(user.getFirstName());
+        existingUser.setLastName(user.getLastName());
+        existingUser.setEmail(user.getEmail());
+        User updateExistUser = userRepository.save(existingUser);
         // return UserMapper.mappToUserDto(updateExistUser);
-        return modelMapper.map(updateExistUser, UserDto.class);
+        return AutoUserMapper.MAPPER.mappToUserDto(updateExistUser);
     }
 
     @Override

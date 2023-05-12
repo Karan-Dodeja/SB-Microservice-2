@@ -43,7 +43,7 @@ public class UserController {
         return new ResponseEntity<>(userList, HttpStatus.OK);
     }
 
-    @PostMapping("{id}")
+    @PutMapping("{id}")
     public ResponseEntity<UserDto> updatUser(@PathVariable("id") Long userId,@RequestBody @Valid UserDto user){
         user.setId(userId);
         UserDto updatedUsers = userService.updateUser(user);
@@ -52,7 +52,7 @@ public class UserController {
     @DeleteMapping("{id}")
     public ResponseEntity<String> deleteUser(@PathVariable("id")  Long userId){
         userService.deleteUser(userId);
-        return ResponseEntity.ok("User Deleted!");
+        return new ResponseEntity<>("User successfully deleted!", HttpStatus.OK);
     }
 
 }
