@@ -16,7 +16,4 @@ public class MessageController {
     public String message() {
         return message;
     }
-
-
-
 }
