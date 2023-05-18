@@ -2,6 +2,7 @@ package com.departmentservice.service;
 
 import com.departmentservice.dto.DepartmentDto;
 import com.departmentservice.entity.Department;
+import com.departmentservice.mapper.DepartmentMapper;
 import com.departmentservice.repository.Departmentrepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,22 +15,13 @@ public class DepartmentServiceImplementation implements DEpartmentService {
 
     @Override
     public DepartmentDto saveDepartment(DepartmentDto departmentDto) {
-        // COnvert DepartmentDto to DepartmentJpa Entity
-        Department department = new Department(
-                departmentDto.getId(),
-                departmentDto.getDepartmentName(),
-                departmentDto.getDepartmentDescription(),
-                departmentDto.getDepartmentCode()
-                );
 
+        Department department = DepartmentMapper.mapToDepartment(departmentDto);
+
+        // COnvert DepartmentDto to DepartmentJpa Entity
         Department savedDepartment = departmentrepository.save(department);
 
-        DepartmentDto savedDepartmentDto = new DepartmentDto(
-           savedDepartment.getId(),
-                savedDepartment.getDepartmentCode(),
-                savedDepartment.getDepartmentName(),
-                savedDepartment.getDepartmentDescription()
-        ) ;
+        DepartmentDto savedDepartmentDto = DepartmentMapper.mapToDepartmentDto(savedDepartment);
 
         return savedDepartmentDto;
     }
@@ -37,12 +29,8 @@ public class DepartmentServiceImplementation implements DEpartmentService {
     @Override
     public DepartmentDto getDepartmentByCode(String code) {
         Department department = departmentrepository.findByDepartmentCode(code);
-        DepartmentDto newDepartmentDto = new DepartmentDto(
-                department.getId(),
-                department.getDepartmentName(),
-                department.getDepartmentDescription(),
-                department.getDepartmentCode()
-        );
+
+        DepartmentDto newDepartmentDto = DepartmentMapper.mapToDepartmentDto(department);
 
         return newDepartmentDto;
     }
