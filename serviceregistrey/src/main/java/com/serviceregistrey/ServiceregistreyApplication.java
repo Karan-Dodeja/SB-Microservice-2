@@ -13,4 +13,3 @@ public class ServiceregistreyApplication {
 	}
 
 }
-depa
