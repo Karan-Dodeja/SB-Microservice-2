@@ -1,6 +1,7 @@
 package com.employeeservice.service;
 
 import com.employeeservice.dto.DepartmentDto;
+import com.employeeservice.dto.OrganizationDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,4 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 public interface APIClient {
     @GetMapping("api/departments/{department-code}")
     DepartmentDto getDepartmentByCode(@PathVariable("department-code") String departmentCode);
+    @GetMapping("api/organizations/{organization-codee}")
+    OrganizationDto getOrganizationByCode(@PathVariable("organization-code") String organizationCode);
 }
