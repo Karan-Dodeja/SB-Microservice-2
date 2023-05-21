@@ -6,4 +6,4 @@ WORKDIR /app
 
 COPY target/springbootrestfuwebservices-0.0.1-SNAPSHOT.jar /app/springbootrestfuwebservices.jar
 
-ENTRYPOINT ["jave","-jar","springbootrestfuwebservices.jar"]
+ENTRYPOINT ["java","-jar","springbootrestfuwebservices.jar"]
