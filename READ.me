@@ -10,6 +10,16 @@ http://localhost:8080/swagger-ui
 #Build Docker Image from DockerFile
 docker build -t docker-image-name:version .
 
+#Run Docker Image in Docker Container
+docker run -p 8080:8080 docker-image-name
+run in background,
+docker run -p 8080:8080 -d docker-image-name
+
+#Docker Logs
+docker logs -f container-id
+
+#Show All Running Docker Containers
+docker ps
 
 #Run MySQL using Docker
 docker run-p 3307:3306 --name localhost -e MYSQL_ROOT_PASSWORD=root -e MY_SQL_DATABASE=employee_db -e MYSQL_USER=root -e MYSQL_PASSWORD=root -d mysql:8.0.31
