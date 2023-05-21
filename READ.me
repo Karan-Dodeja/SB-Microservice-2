@@ -24,10 +24,16 @@ docker ps
 #Stop Container
 docker stop first-four-word-of-docker-container-id
 
+#Docker Push
+docker push username/Image Name:version
+
 #Pull Any Repository From Docker Hub Through Commandline
 docker pull karandodeja(Username)/docker-demo(Image Name)
 OR,
 docker pull mysql:latest
+
+#Docker Login
+docker login
 
 #Run MySQL using Docker
 docker run-p 3307:3306 --name localhost -e MYSQL_ROOT_PASSWORD=root -e MY_SQL_DATABASE=employee_db -e MYSQL_USER=root -e MYSQL_PASSWORD=root -d mysql:8.0.31
