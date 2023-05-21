@@ -40,3 +40,17 @@ docker run-p 3307:3306 --name localhost -e MYSQL_ROOT_PASSWORD=root -e MY_SQL_DA
 
 #Show All Docker Images
 docker images
+
+#MySQL in Docker and Connect with App
+Step 1 :docker pull mysql
+	docker images
+Step 2:Create Container
+	docker network create springboot-mysql-net 
+Step 3:docker network ls (Shows all networks)
+Step 4:Run Image in Docker Container
+	docker run --name mysqldb --network springboot-mysql-net -e 	MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=employeedb -d mysql
+Step 5:docker ps (Shows All The running Containers)
+Step 6:docker exec -it container-id bash(open bash)
+Step 7:mysql -u root -p ->Enter ->Enter-password
+Step 8:Connected to MySQL
+
