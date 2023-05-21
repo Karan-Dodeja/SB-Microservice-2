@@ -21,6 +21,9 @@ docker logs -f container-id
 #Show All Running Docker Containers
 docker ps
 
+#Stop Container
+docker stop first-four-word-of-docker-container-id
+
 #Run MySQL using Docker
 docker run-p 3307:3306 --name localhost -e MYSQL_ROOT_PASSWORD=root -e MY_SQL_DATABASE=employee_db -e MYSQL_USER=root -e MYSQL_PASSWORD=root -d mysql:8.0.31
 
