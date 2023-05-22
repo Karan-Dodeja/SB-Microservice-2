@@ -9,7 +9,7 @@ import org.springframework.kafka.config.TopicBuilder;
 public class kafkaTopicConfig {
     @Bean
     public NewTopic kafkaTopicBuilder(){
-        return TopicBuilder.name("TestingKarka")
+        return TopicBuilder.name("TestingKaran")
                 .build();
     }
 
