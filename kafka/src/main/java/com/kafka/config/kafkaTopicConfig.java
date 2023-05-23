@@ -13,4 +13,10 @@ public class kafkaTopicConfig {
                 .build();
     }
 
+    @Bean
+    public NewTopic testingKaranJson(){
+        return TopicBuilder.name("TestingKaran_Json")
+                .build();
+    }
+
 }
