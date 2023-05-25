@@ -7,8 +7,10 @@
         <groupId>com.kafkarealworlproject</groupId>
         <artifactId>kafkarealworlproject</artifactId>
         <version>0.0.1-SNAPSHOT</version>
+
     </parent>
 
+    <packaging>jar</packaging>
     <artifactId>kafka-producer-wikimedia</artifactId>
 
     <properties>
